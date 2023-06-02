@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>My Website</title>
+    <style>
+        
+      .content {
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('static/image/kids.jpg');
+        background-position: center;
+        background-size: cover;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      
+        
+        .content h1, .content p {
+          color: white;
+          text-align: center;
+        }
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            padding: 20px;
+            border-radius: 10px;
+          }
+      
+          /* Define card style */
+          .card {
+            padding: 70px;
+            height: 100px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            margin-top: -150px;
+            margin-left: 40px;
+          }
+      
+          .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+          }
+          .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 7px;
+          }
+          .card {
+            position: relative;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+          }
+          .card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* preserve aspect ratio and fill the container */
+          }
+          .card-container .card:hover .cart-logo {
+            display: block;
+          }
+          
+          .card .cart-logo {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 1;
+          }
+          .cart-icon {
+            font-size: 25px;
+            position: absolute;
+            top: 10px;
+            right: 5px;
+            opacity: 0;
+            transition: all 0.1s ease-in-out;
+          }
+          
+          .card:hover .cart-icon {
+            opacity: 1;
+          }
+          .cart {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            padding: 30px;
+            margin-top: 70px;
+
+          }
+          
+          .item {
+            position: relative;
+            width: 250px;
+            height: 320px;
+            margin-bottom: 40px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border-radius: 10px;
+          }
+          
+          .item:hover {
+            transform: translateY(-10px);
+          }
+          
+          .image {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+          }
+          
+          .image::before {
+            content: "";
+            display: block;
+            padding-top: 100%;
+          }
+          
+          .image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+          }
+          
+          .details {
+            padding: 20px;
+            text-align: center;
+          }
+          
+          .details h3 {
+            margin-top: 0;
+          }
+          
+          .details p {
+            font-size: 16px;
+            margin: 10px 0 0;
+          }
+          
+          @media (max-width: 768px) {
+            .item {
+              width: 100%;
+            }
+          }
+          .buy-now-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          }
+        
+          .buy-now-button:hover {
+            background-color: #0062cc;
+          }
+          .popup {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 25%;
+            top: 25%;
+            width: 50%;
+            height: 50%;
+            background-color: #f1f1f1;
+            border: 1px solid #888;
+            border-radius: 5px;
+            padding: 20px;
+          }
+          
+          .popup-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+          }
+          
+          .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #888;
+            cursor: pointer;
+          }
+          
+          .close:hover {
+            color: #000;
+          }
+          
+          
+        .navbar {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+.popup-content button {
+    background-color: #4CAF50; /* Change the background color */
+    color: white; /* Change the text color */
+    border: none; /* Remove the border */
+    padding: 10px 20px; /* Adjust the padding */
+    font-size: 16px; /* Adjust the font size */
+    cursor: pointer; /* Change the cursor on hover */
+    border-radius: 4px; /* Add border-radius for rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  }
+
+  .popup-content button:hover {
+    background-color: #45a049; /* Change the background color on hover */
+  }
+</style>
+</head>
+<body>
+    <div class="navbar">
+        <a class="active" href="{% url 'home' %}">Home</a>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Signup</a>
+        <a href="{% url 'signup' %}">Logout</a>
+      </div><br>
+    <div class="cart">
+        <div class="item">
+            <div class="image">
+              <img src="static/image/maths1.jpg" alt="Item 2" onclick="showPopup()">
+            </div>
+            <div class="details">
+              <h3>class 5</h3>
+            </div>
+          </div>
+          
+          <div id="popup" class="popup">
+            <div class="popup-content">
+              <h4>For more details, call teacher</h4>
+              <a href="tel:TEACHER_PHONE_NUMBER">
+                <i class="fas fa-phone"></i> <!-- Font Awesome call icon -->
+              </a>
+              <button onclick="callTeacher()">Call now</button>
+              <span class="close" onclick="hidePopup()">&times;</span>
+            </div>
+          </div>
+          
+          
+          
+        <div class="item">
+            <div class="image">
+              <img src="static/image/maths1.jpg" alt="Item 2">
+            </div>
+            <div class="details">
+              <h3>class 6</h3>
+            </div>
+          </div>
+          
+          <div class="item">
+            <div class="image">
+              <img src="static/image/maths1.jpg" alt="Item 2">
+            </div>
+            <div class="details">
+              <h3>class 7</h3>
+            </div>
+          </div>
+          
+          <div class="item">
+            <div class="image">
+              <img src="static/image/maths1.jpg" alt="Item 2">
+            </div>
+            <div class="details">
+              <h3>class 8</h3>
+            </div>
+          </div>
+          <div class="item">
+            <div class="image">
+              <img src="static/image/maths1.jpg" alt="Item 2">
+            </div>
+            <div class="details">
+              <h3>class 9</h3>
+            </div>
+          </div>
+          <div class="item">
+            <div class="image">
+              <img src="static/image/maths1.jpg" alt="Item 2">
+            </div>
+            <div class="details">
+              <h3>class 10</h3>
+            </div>
+          </div>
+      </div>
+</body>
+<script>
+    function showPopup() {
+      document.getElementById('popup').style.display = 'block';
+    }
+  
+    function hidePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  
+    function callTeacher() {
+      // Add your code here to handle the action when the "Call now" button is clicked
+    }
+  </script>
+</html>
